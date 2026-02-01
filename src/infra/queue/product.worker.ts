@@ -1,5 +1,6 @@
 import { Worker } from 'bullmq';
 import { IORedis, redisConnection } from '../../redis';
+import { deadLetterQueue } from './dlq.queue';
 
 async function startWorker() {
   const worker = new Worker(
@@ -32,8 +33,29 @@ async function startWorker() {
     console.log(`✅ job ${job.id} concluído`);
   });
 
-  worker.on('failed', (job, err) => {
-    console.error(`⛔ job ${job?.id} falhou:`, { err });
+  worker.on('failed', async (job, err) => {
+    if (!job) return;
+
+    console.error(`⛔ job ${job.id} falhou:`, { err });
+
+    const attemptsMade = job.attemptsMade ?? 1;
+    const maxAttempts = job.opts.attempts ?? 1;
+
+    if (attemptsMade >= maxAttempts) {
+      await deadLetterQueue.add(
+        'create-product-failed',
+        {
+          originalJobId: job.id,
+          queue: job.queueName,
+          data: job.data,
+          error: err.message,
+        },
+        {
+          removeOnComplete: false,
+          jobId: `dlq:${job.id}`,
+        },
+      );
+    }
   });
 }
 

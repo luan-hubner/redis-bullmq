@@ -1,10 +1,10 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import Redis from 'ioredis';
 
-if (!process.env.REDIS_URL) {
-  throw new Error('REDIS_URL not set');
-}
+const IORedis = new Redis(6379, '127.0.0.1');
 
-export const redis = new Redis(process.env.REDIS_URL);
+const redisConnection = {
+  host: '127.0.0.1',
+  port: 6379,
+};
+
+export { IORedis, redisConnection };

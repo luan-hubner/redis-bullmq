@@ -57,7 +57,9 @@ After product creation the APP will clear Redis product caching and the products
 
 To monitoring the queues I used [bull-board](https://github.com/felixmosh/bull-board) package, this lib provides a good dashboard to inspect Queues.
 
-And just to finish, I used Drizzle as ORM.
+I also added Redis _Pub/Sub_ interaction in this project. When a new order is created the publisher just send a message to subscribers to update stock, send e-mails, etc. Easy peasy lemon squeezy.
+
+I used Drizzle as ORM.
 
 ## Contact
 

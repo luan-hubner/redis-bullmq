@@ -1,0 +1,1 @@
+ALTER TABLE "orders" RENAME COLUMN "userEmail" TO "user_email";

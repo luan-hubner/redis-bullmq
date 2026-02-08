@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1770530752845,
+      "tag": "0000_nasty_tempest",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1770530986718,
+      "tag": "0001_fixed_cammi",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1770531188384,
+      "tag": "0002_gray_pestilence",
+      "breakpoints": true
+    }
+  ]
+}

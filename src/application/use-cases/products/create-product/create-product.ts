@@ -23,8 +23,7 @@ export class CreateProduct {
       throw new Error();
     }
 
-    // add product on queue to be cached
-    // just 4fun
+    // worker will handle it
     await productQueue.add(
       'create-product',
       {
